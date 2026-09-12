@@ -1,4 +1,4 @@
-```tsx
+
 "use client";
 
 import { useState } from "react";
@@ -10,6 +10,10 @@ import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 
+type ForgotPasswordForm = {
+  email: string;
+};
+
 export default function ForgotPasswordPage() {
   const supabase = createClient();
   const [sent, setSent] = useState(false);
@@ -18,11 +22,11 @@ export default function ForgotPasswordPage() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<{ email: string }>({
+  } = useForm<ForgotPasswordForm>({
     resolver: zodResolver(forgotPasswordSchema),
   });
 
-  async function onSubmit(values: { email: string }) {
+  async function onSubmit(values: ForgotPasswordForm) {
     await supabase.auth.resetPasswordForEmail(values.email, {
       redirectTo: `${window.location.origin}/reset-password`,
     });
@@ -49,7 +53,7 @@ export default function ForgotPasswordPage() {
               label="البريد الإلكتروني"
               type="email"
               {...register("email")}
-              error={(errors as any).email?.message}
+              error={errors.email?.message}
             />
 
             <Button type="submit" disabled={isSubmitting}>
@@ -63,4 +67,3 @@ export default function ForgotPasswordPage() {
     </div>
   );
 }
-```
