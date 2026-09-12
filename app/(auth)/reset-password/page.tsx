@@ -74,5 +74,9 @@ export default function ResetPasswordPage() {
           <Button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "جارٍ الحفظ..." : "حفظ كلمة المرور"}
           </Button>
-        </fo
+        </form>
+      </Card>
+    </div>
+  );
+}
 
